@@ -29,9 +29,10 @@ const run = async () => {
         //////////////////////// Donar Section //////////////////////
         /////////////////////////////////////////////////////////////
 
+
         app.post('/donar', async(req, res) => {
             const data = req.body;
-            const cursor = await usersCollection.insertOne(data)
+            const cursor = await donarCollection.insertOne(data)
             res.json(cursor)
         })
         app.get('/donar', async(req, res) =>{
