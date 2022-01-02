@@ -19,7 +19,32 @@ const run = async () => {
     try{
         await client.connect()
         console.log("Database Connected!")
-    
+
+        // Database and Collection 
+        const database = client.db('blood_donation');
+        const usersCollection = database.collection('users');
+        const donarCollection = database.collection('donar');
+
+        /////////////////////////////////////////////////////////////
+        //////////////////////// Donar Section //////////////////////
+        /////////////////////////////////////////////////////////////
+
+        app.post('/donar', async(req, res) => {
+            const data = req.body;
+            const cursor = await usersCollection.insertOne(data)
+            res.json(cursor)
+        })
+        app.get('/donar', async(req, res) =>{
+            const cursor = donarCollection.find({});
+            const donar = await cursor.toArray()
+            res.json(donar)
+        })
+        app.get('/donar/:group', async(req, res) =>{
+            const group = req.params.group;
+            const cursor = donarCollection.find({group: group});
+            const meals = await cursor.toArray()
+            res.json(meals)
+        })
     }
     catch{
 
