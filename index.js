@@ -47,6 +47,25 @@ const run = async () => {
             const meals = await cursor.toArray()
             res.json(meals)
         })
+        
+        /////////////////////////////////////////////////////////////
+        //////////////////////// User Section ///////////////////////
+        /////////////////////////////////////////////////////////////
+
+
+    // Post User Data 
+    app.post('/users', async(req, res) => {
+        const data = req.body;
+        const cursor = await usersCollection.insertOne(data)
+        res.json(cursor)
+      })
+    // Firebase User 
+    app.put('/users', async(req, res) => {
+    const data = req.body;
+    const result = await usersCollection.updateOne({email: data.email}, {$set: data}, {upsert: true})
+    res.json(result)
+    })
+
     }
     catch{
 
