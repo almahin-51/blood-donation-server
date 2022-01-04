@@ -47,8 +47,9 @@ const run = async () => {
             const result = await cursor.toArray()
             res.json(result)
         })
-        app.get('/donar/:email', async(req, res) =>{
+        app.get('/donardata/:email', async(req, res) =>{
             const email = req.params.email;
+            console.log(email);
             const result = await donarCollection.findOne({email});
             res.json(result)
         })
