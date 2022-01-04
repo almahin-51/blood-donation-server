@@ -32,6 +32,7 @@ const run = async () => {
 
         app.post('/donar', async(req, res) => {
             const data = req.body;
+            console.log(data);
             const cursor = await donarCollection.insertOne(data)
             res.json(cursor)
         })
@@ -40,9 +41,9 @@ const run = async () => {
             const donar = await cursor.toArray()
             res.json(donar)
         })
-        app.get('/donar/:group', async(req, res) =>{
-            const group = req.params.group;
-            const cursor = donarCollection.find({group: group});
+        app.get('/donar/:district', async(req, res) =>{
+            const district = req.params.district;
+            const cursor = donarCollection.find({district});
             const meals = await cursor.toArray()
             res.json(meals)
         })
