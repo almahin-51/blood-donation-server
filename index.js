@@ -44,8 +44,13 @@ const run = async () => {
         app.get('/donar/:district', async(req, res) =>{
             const district = req.params.district;
             const cursor = donarCollection.find({district});
-            const meals = await cursor.toArray()
-            res.json(meals)
+            const result = await cursor.toArray()
+            res.json(result)
+        })
+        app.get('/donar/:email', async(req, res) =>{
+            const email = req.params.email;
+            const result = await donarCollection.findOne({email});
+            res.json(result)
         })
         
         /////////////////////////////////////////////////////////////
@@ -62,6 +67,7 @@ const run = async () => {
     // Firebase User 
     app.put('/users', async(req, res) => {
     const data = req.body;
+    console.log(data);
     const result = await usersCollection.updateOne({email: data.email}, {$set: data}, {upsert: true})
     res.json(result)
     })
